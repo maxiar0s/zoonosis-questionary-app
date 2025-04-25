@@ -1,0 +1,17 @@
+<div class="card bg-base-100 w-full shadow-sm">
+  <div class="card-body">
+    @for (test of tests; track $index) {
+    <h2 class="card-title text-xl font-bold">{{ test.question }}</h2>
+    <label class="label">
+      @for (option of test.options; track $index) {
+      <input type="checkbox" class="checkbox" />
+      {{ option }}
+      }
+    </label>
+    }
+    <div class="card-actions justify-end">
+      <button class="btn">Anterior</button>
+      <button class="btn">Siguiente</button>
+    </div>
+  </div>
+</div>
