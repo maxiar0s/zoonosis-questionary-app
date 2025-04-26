@@ -1,6 +1,11 @@
 export interface Test {
   id: number;
   question: string;
-  options: string[];
+  options: options[];
   correct: string;
+}
+
+export interface options {
+  id: number;
+  option: string;
 }

@@ -1,63 +1,14 @@
 <div class="join self-center">
-  <input
-    class="join-item btn btn-square"
+  @for (idx of pageNumbers(); track idx) {
+
+  <button
+    class="join-item btn btn-square w-8 xs:w-9 sm:w-10 md:w-12 lg:w-13"
     type="radio"
     name="options"
-    aria-label="1"
-    checked="checked"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="2"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="3"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="4"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="5"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="6"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="7"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="8"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="9"
-  />
-  <input
-    class="join-item btn btn-square"
-    type="radio"
-    name="options"
-    aria-label="10"
-  />
+    [class.btn-primary]="idx === currentPage()"
+    (click)="changePage(idx)"
+  >
+    {{ idx }}
+  </button>
+  }
 </div>

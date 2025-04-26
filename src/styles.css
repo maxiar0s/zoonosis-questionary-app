@@ -3,3 +3,7 @@
 @plugin "daisyui" {
   themes: valentine --default;
 }
+
+@theme {
+  --breakpoint-xs: 30rem;
+}

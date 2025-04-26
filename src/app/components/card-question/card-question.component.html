@@ -1,17 +1,36 @@
-<div class="card bg-base-100 w-full shadow-sm">
-  <div class="card-body">
-    @for (test of tests; track $index) {
-    <h2 class="card-title text-xl font-bold">{{ test.question }}</h2>
-    <label class="label">
-      @for (option of test.options; track $index) {
-      <input type="checkbox" class="checkbox" />
-      {{ option }}
+<main
+  class="card bg-base-100 w-xs xs:w-sm sm:w-md md:w-lg lg:w-xl shadow-md flex justify-center items-center m-2"
+>
+  <section class="card-body w-full">
+    <!-- Mostrar solo la pregunta actual -->
+    <h2 class="card-title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+      {{ currentTest().question }}
+    </h2>
+    <div class="label flex flex-col gap-2 items-start my-2">
+      @for (option of currentTest().options; track option.id) {
+      <div
+        class="flex flex-row gap-2 w-full mt-2 whitespace-normal items-center"
+      >
+        <input
+          type="checkbox"
+          class="checkbox"
+          [checked]="isSelected(currentTest().id, option.id)"
+          (click)="selectOption(currentTest().id, option.id)"
+        />
+        <label class="text-label break-normal text-md xs:text-md sm:text-lg">{{
+          option.option
+        }}</label>
+      </div>
       }
-    </label>
-    }
-    <div class="card-actions justify-end">
-      <button class="btn">Anterior</button>
-      <button class="btn">Siguiente</button>
     </div>
-  </div>
-</div>
+    <!-- Componente de paginación -->
+    <section class="flex justify-center mt-2">
+      <app-pagination
+        [totalPages]="totalPages"
+        [currentPage]="currentPage() + 1"
+        (pageChange)="onPageChange($event)"
+      >
+      </app-pagination>
+    </section>
+  </section>
+</main>
