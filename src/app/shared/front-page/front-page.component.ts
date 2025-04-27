@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TestService } from '../../services/test.service';
 
 @Component({
   selector: 'app-front-page',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './front-page.component.html',
   standalone: true,
 })
