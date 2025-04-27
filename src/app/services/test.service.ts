@@ -19,7 +19,10 @@ export class TestService {
   // Método para guardar una respuesta
   saveAnswer(questionId: number, optionId: number): void {
     this.userAnswers.update((answers) => {
-      return { ...answers, [questionId]: optionId };
+      const updatedAnswers = { ...answers, [questionId]: optionId };
+      // Guardar en localStorage cada vez que se actualiza
+      this.saveAnswersToStorage(updatedAnswers);
+      return updatedAnswers;
     });
   }
 
@@ -31,16 +34,23 @@ export class TestService {
   // Método para reiniciar las respuestas
   resetAnswers(): void {
     this.userAnswers.set({});
+    localStorage.removeItem(this.STORAGE_KEY);
   }
 
   // Método para marcar el test como completado
   markTestAsCompleted(): void {
     localStorage.setItem(this.COMPLETED_KEY, 'true');
+    this.saveAnswersToStorage(this.userAnswers());
   }
 
   // Método para verificar si el test ya fue completado
   isTestCompleted(): boolean {
     return localStorage.getItem(this.COMPLETED_KEY) === 'true';
+  }
+
+  resetTestState(): void {
+    this.resetAnswers();
+    localStorage.removeItem(this.COMPLETED_KEY);
   }
 
   // Método privado para guardar respuestas en localStorage

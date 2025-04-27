@@ -2,15 +2,16 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { options, Test } from '../../interfaces/test';
 import { tests } from '../../data/tests.data';
 import { TestService } from '../../services/test.service';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-answers-page',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './answers-page.component.html',
 })
 export class AnswersPageComponent {
   testService = inject(TestService);
+  router = inject(Router);
 
   // Datos de las preguntas
   tests = signal<Test[]>(tests);
@@ -63,5 +64,11 @@ export class AnswersPageComponent {
     return (
       this.isSelected(test.id, option.id) && !this.isCorrectOption(test, option)
     );
+  }
+
+  // Método para volver al inicio
+  goToHome(): void {
+    // No necesitamos resetear el estado porque queremos mantener el test como completado
+    this.router.navigate(['']);
   }
 }
