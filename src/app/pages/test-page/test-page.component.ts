@@ -58,6 +58,9 @@ export class TestPageComponent {
   }
 
   navigateToAnswersPage(): void {
+    // Asegurarse de que el test esté marcado como completado
+    // antes de navegar a la página de resultados
+    this.testService.markTestAsCompleted();
     this.router.navigate(['/test/results']);
   }
 }

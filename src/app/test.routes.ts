@@ -22,8 +22,8 @@ const testCompletedGuard = () => {
 export const testRoutes: Routes = [
   {
     path: '',
-    component: TestPageComponent,
     canActivate: [testCompletedGuard],
+    component: TestPageComponent,
   },
   {
     path: 'results',
