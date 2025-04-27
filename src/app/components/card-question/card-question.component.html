@@ -1,12 +1,10 @@
-<main
-  class="card bg-base-100 w-full sm:w-md md:w-lg lg:w-xl shadow-md flex justify-center items-center"
->
+<main class="card bg-base-100 w-full max-w-2xl shadow-lg">
   <section class="card-body w-full">
     <!-- Mostrar solo la pregunta actual -->
     <h2 class="card-title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
       {{ currentTest().question }}
     </h2>
-    <div class="label flex flex-col gap-2 items-start my-2">
+    <div class="label flex flex-col gap-2 items-start my-1">
       @for (option of currentTest().options; track option.id) {
       <div
         class="flex flex-row gap-2 w-full mt-2 whitespace-normal items-center"
@@ -24,7 +22,7 @@
       }
     </div>
     <!-- Componente de paginación -->
-    <section class="flex justify-center mt-2">
+    <section class="flex justify-center mt-2 w-full max-w-2xl">
       <app-pagination
         [totalPages]="totalPages"
         [currentPage]="currentPage() + 1"
