@@ -1,7 +1,8 @@
 import { tests } from './../../data/tests.data';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Test } from './../../interfaces/test';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { TestService } from '../../services/test.service';
 
 @Component({
   selector: 'app-card-question',
@@ -9,9 +10,12 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   templateUrl: './card-question.component.html',
 })
 export class CardQuestionComponent {
+  testService = inject(TestService);
+
   tests = signal<Test[]>(tests);
   currentPage = signal(0);
 
+  //NOTE Señal computada para recorrer un array
   selectedOptions = signal<Record<number, number>>({});
 
   currentTest = computed(() => {
@@ -23,10 +27,12 @@ export class CardQuestionComponent {
   }
 
   selectOption(questionId: number, optionId: number) {
+    // Guardar la respuesta en el servicio
+    this.testService.saveAnswer(questionId, optionId);
+
+    // Actualizar la UI local
     this.selectedOptions.update((options) => {
-      // Crear una copia del objeto actual
       const newOptions = { ...options };
-      // Asignar la nueva selección (reemplazando cualquier selección anterior)
       newOptions[questionId] = optionId;
       return newOptions;
     });

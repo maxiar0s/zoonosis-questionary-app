@@ -1,6 +1,24 @@
-<section class="flex flex-col items-center justify-center m-5 gap-2">
-  <app-card-question />
-  <button class="btn btn-primary w-xs xs:w-sm sm:w-md md:w-lg lg:w-xl">
-    Enviar respuesta
-  </button>
-</section>
+<main
+  class="hero min-h-screen"
+  style="background-image: url(/assets/pathogenos-bg.jpg)"
+>
+  <div class="hero-overlay"></div>
+  <!--  -->
+  <section class="flex flex-col items-center justify-center align-middle gap-2">
+    <app-card-question #cardQuestionComponent />
+    <button
+      class="btn btn-primary w-2xs xxs:w-xs xs:w-sm sm:w-md md:w-lg lg:w-xl"
+      (click)="openModal()"
+    >
+      Enviar respuesta
+    </button>
+  </section>
+</main>
+
+<!-- Modal de confirmación -->
+<app-confirmation-modal
+  [showModal]="showModal()"
+  [unansweredQuestions]="unansweredQuestions"
+  (closeModal)="closeModal()"
+  (submitTest)="submitTest()"
+/>

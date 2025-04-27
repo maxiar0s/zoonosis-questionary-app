@@ -1,0 +1,18 @@
+<dialog id="confirmation_modal" class="modal" [class.modal-open]="showModal()">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">¿Estás seguro?</h3>
+    <p class="py-4">
+      Te quedan {{ unansweredQuestions() }} preguntas por responder. ¿Deseas
+      enviar el test de todos modos?
+    </p>
+    <div class="modal-action">
+      <button class="btn btn-outline" (click)="onClose()">
+        Continuar con el test
+      </button>
+      <button class="btn btn-primary" (click)="onSubmit()">Estoy seguro</button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button (click)="onClose()">cerrar</button>
+  </form>
+</dialog>

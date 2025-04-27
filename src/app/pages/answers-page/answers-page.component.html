@@ -1,0 +1,84 @@
+<main
+  class="hero min-h-screen"
+  style="background-image: url(/assets/pathogenos-bg.jpg)"
+>
+  <div class="hero-overlay"></div>
+
+  <section
+    class="flex flex-col items-center justify-center align-middle m-5 gap-4"
+  >
+    <!-- Resumen de puntuación -->
+    <div class="card bg-base-100 w-full max-w-2xl shadow-lg">
+      <div class="card-body">
+        <h2 class="card-title text-2xl font-bold text-center">
+          Resultados del Test
+        </h2>
+        <div class="stats shadow">
+          <div class="stat">
+            <div class="stat-title">Puntuación</div>
+            <div class="stat-value text-primary">
+              {{ correctAnswers() }} / {{ tests().length }}
+            </div>
+            <div class="stat-desc">
+              {{ ((correctAnswers() / tests().length) * 100).toFixed(0) }}% de
+              respuestas correctas
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listado de todas las preguntas con respuestas -->
+    @for (test of tests(); track test.id) {
+    <div class="card bg-base-100 w-full max-w-2xl shadow-md">
+      <div class="card-body">
+        <h3 class="card-title text-xl font-bold">
+          {{ test.id }}. {{ test.question }}
+        </h3>
+
+        <div class="mt-2">
+          @for (option of test.options; track option.id) {
+          <div
+            class="flex items-start gap-2 p-2 rounded-lg mt-1"
+            [class.bg-success-content]="isCorrectOption(test, option)"
+            [class.bg-error-content]="isIncorrectSelection(test, option)"
+          >
+            <div
+              class="w-6 h-6 flex items-center justify-center rounded-full mt-1"
+              [class.bg-success]="isCorrectOption(test, option)"
+              [class.bg-error]="isIncorrectSelection(test, option)"
+              [class.border]="
+                isSelected(test.id, option.id) &&
+                !isIncorrectSelection(test, option) &&
+                !isCorrectOption(test, option)
+              "
+            >
+              @if (isSelected(test.id, option.id)) {
+              <span class="text-white">✓</span>
+              }
+            </div>
+            <div>
+              <p
+                class="font-medium"
+                [class.text-success]="isCorrectOption(test, option)"
+                [class.text-error]="isIncorrectSelection(test, option)"
+              >
+                {{ option.option }}
+              </p>
+              @if (isCorrectOption(test, option)) {
+              <p class="text-sm text-success">Respuesta correcta</p>
+              } @if (isIncorrectSelection(test, option)) {
+              <p class="text-sm text-error">Tu respuesta</p>
+              }
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Botón para volver al inicio -->
+    <button class="btn btn-primary mt-6" routerLink="">Volver al inicio</button>
+  </section>
+</main>
